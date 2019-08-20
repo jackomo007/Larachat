@@ -2,7 +2,10 @@
 
 use App\Events\TaskCreated;
 use App\Project;
-use App\Task;
+
+Route::get('/', function () {
+    return redirect('/home');
+});
 
 Route::get('/projects/{project}', function (Project $project) {
     $project->load('tasks');
