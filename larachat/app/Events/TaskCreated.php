@@ -35,6 +35,6 @@ class TaskCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('tasks');
+        return new Channel('tasks.' .$this->task->project_id);
     }
 }

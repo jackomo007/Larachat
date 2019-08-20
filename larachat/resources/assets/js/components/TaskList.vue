@@ -1,34 +1,35 @@
 <template>
-    <div class="container">
+    <div>
+        <h3 v-text="project.name"></h3>
         <ul>
-            <li v-for="task in tasks" :key="task.id" v-text="task"></li>
+            <li class="list-group" v-for="task in project.tasks" :key="task.id" v-text="task.body"></li>
         </ul>
 
-        <input type="text" v-model="newTask" @blur="addTask">
+        <input class="form-control" type="text" placeholder="New Task" v-model="newTask" @blur="save">
     </div>
 </template>
 
 <script>
     export default {
+        props: ["data-project"],
         data() {
             return{
-                tasks: [],
+                project: this.dataProject,
                 newTask: ''
-            }
+            };
         },
         created(){
-            axios.get('/tasks').then(response => (this.tasks = response.data));
-
-            window.Echo.channel('tasks').listen('TaskCreated', ({ task }) => {
-                this.tasks.push(task.body);
-            });
+            window.Echo.channel('tasks.' +this.project.id)
+            .listen('TaskCreated', ({ task }) => { this.addTask(task) });
         },
-
         methods: {
-            addTask(){
-                axios.post('/tasks', { body: this.newTask });
-
-                this.tasks.push(this.newTask);
+            save(){
+                axios.post(`/api/projects/${this.project.id}/tasks`, { body: this.newTask})
+                .then(response => response.data)
+                .then(this.addTask);
+            },
+            addTask(task){
+                this.project.tasks.push(task);
 
                 this.newTask = '';
             }
