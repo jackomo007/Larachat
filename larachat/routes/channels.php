@@ -11,16 +11,7 @@
 |
 */
 
-Broadcast::channel('tasks.{projectId}', function ($user, $projectId) {
+Broadcast::channel('tasks.{project}', function ($user, \App\Project $project) {
     
-    $canAccess = [];
-    
-    if($user->email === 'jeal.code47@gmail.com'){
-        $canAccess = [1];
-    }
-
-    if($user->email === 'gremis@gmail.com'){
-        $canAccess = [2];
-    }
-    return in_array($projectId, $canAccess);
+    return $project->participants->contains($user);
 });
