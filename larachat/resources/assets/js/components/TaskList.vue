@@ -19,7 +19,7 @@
             };
         },
         created(){
-            window.Echo.channel('tasks.' +this.project.id)
+            window.Echo.private('tasks.' +this.project.id)
             .listen('TaskCreated', ({ task }) => { this.addTask(task) });
         },
         methods: {

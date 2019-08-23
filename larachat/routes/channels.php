@@ -11,6 +11,16 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('tasks.{projectId}', function ($user, $projectId) {
+    
+    $canAccess = [];
+    
+    if($user->email === 'jeal.code47@gmail.com'){
+        $canAccess = [1];
+    }
+
+    if($user->email === 'gremis@gmail.com'){
+        $canAccess = [2];
+    }
+    return in_array($projectId, $canAccess);
 });
