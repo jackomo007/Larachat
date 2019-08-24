@@ -54910,34 +54910,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["data-project"],
-    data: function data() {
-        return {
-            project: this.dataProject,
-            newTask: ''
-        };
+  props: ["data-project"],
+  data: function data() {
+    return {
+      project: this.dataProject,
+      newTask: ""
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.Echo.private("tasks." + this.project.id).listen("TaskCreated", function (_ref) {
+      var task = _ref.task;
+
+      _this.addTask(task);
+    });
+  },
+
+  methods: {
+    save: function save() {
+      axios.post("/api/projects/" + this.project.id + "/tasks", { body: this.newTask }).then(function (response) {
+        return response.data;
+      }).then(this.addTask);
     },
-    created: function created() {
-        var _this = this;
+    addTask: function addTask(task) {
+      this.project.tasks.push(task);
 
-        window.Echo.private('tasks.' + this.project.id).listen('TaskCreated', function (_ref) {
-            var task = _ref.task;
-            _this.addTask(task);
-        });
-    },
-
-    methods: {
-        save: function save() {
-            axios.post('/api/projects/' + this.project.id + '/tasks', { body: this.newTask }).then(function (response) {
-                return response.data;
-            }).then(this.addTask);
-        },
-        addTask: function addTask(task) {
-            this.project.tasks.push(task);
-
-            this.newTask = '';
-        }
+      this.newTask = "";
     }
+  }
 });
 
 /***/ }),

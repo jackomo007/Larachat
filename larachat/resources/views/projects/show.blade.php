@@ -8,9 +8,15 @@
                 <div class="panel-heading">Task List</div>
 
                 <div class="panel-body">
-                    <div id="app">
-                        <task-list  v-bind:data-project="{{ $project }}"></task-list>
-                    </div>
+                    @if($project->participants[0]->email == Auth::user()->email)
+                        <div id="app">
+                            <task-list  v-bind:data-project="{{ $project }}"></task-list>
+                        </div>
+                    @else
+                        <div>
+                            <h3>Not your business</h3>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

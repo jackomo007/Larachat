@@ -21,14 +21,25 @@ Route::get('/home', 'HomeController@index')->name('home');
 // API
 
 Route::get('/api/projects/{project}/tasks', function(Project $project) {
-   return $project->tasks->pluck('body');
+   
+    if($project->participants[0]->email == auth()->user()->email){
+        return $project->tasks->pluck('body');
+    }
 });
 
 Route::post('/api/projects/{project}/tasks', function(Project $project) {
-    $task = $project->tasks()->create(request(['body']));
+    
+    if($project->participants[0]->email == auth()->user()->email){
+    
+        $task = $project->tasks()->create(request(['body']));
 
-    event(new TaskCreated($task));
+        event(new TaskCreated($task));
 
-    return $task;
+        return $task;
+    }
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
