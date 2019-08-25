@@ -11,7 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
-} catch (e) {}
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -52,6 +52,6 @@ window.Echo = new Echo({
     key: '8092c2835b1f6fd7c4a5'
 });
 
-window.Echo.channel('orders').listen('OrderStatusUpdated', e => {
-        console.log('OK, i am getting '+ e.order.id);
-    });
+window.Echo.channel('tasks').listen('TaskCreated', e => {
+    console.log(e);
+});

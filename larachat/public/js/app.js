@@ -1054,8 +1054,8 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo__["a" /* default */](
     key: '8092c2835b1f6fd7c4a5'
 });
 
-window.Echo.channel('orders').listen('OrderStatusUpdated', function (e) {
-    console.log('OK, i am getting ' + e.order.id);
+window.Echo.channel('tasks').listen('TaskCreated', function (e) {
+    console.log(e);
 });
 
 /***/ }),
