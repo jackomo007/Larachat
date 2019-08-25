@@ -11,7 +11,7 @@
       placeholder="New Task"
       v-model="newTask"
       @blur="save"
-      @keydown="tapParticipants"
+      @keydown="tagPeers"
     />
     <span v-if="activePeer" v-text="activePeer.name+ ' is typing...'"></span>
   </div>
@@ -28,22 +28,26 @@ export default {
       typingTimer: false
     };
   },
+  computed: {
+    channel() {
+      return window.Echo.private("tasks." + this.project.id);
+    }
+  },
   created() {
-    window.Echo.private("tasks." + this.project.id)
+    this.channel
       .listen("TaskCreated", ({ task }) => this.addTask(task))
-      .listenForWhisper("typing", e => {
-        this.activePeer = e;
-
-        if (this.typingTimer) clearTimeout(this.typingTimer);
-
-        this.typingTimer = setTimeout(() => {
-          this.activePeer = false;
-        }, 3000);
-      });
+      .listenForWhisper("typing", this.flashActivePeer);
   },
   methods: {
-    tapParticipants() {
-      window.Echo.private("tasks." + this.project.id).whisper("typing", {
+    flashActivePeer(e) {
+      this.activePeer = e;
+
+      if (this.typingTimer) clearTimeout(this.typingTimer);
+
+      this.typingTimer = setTimeout(() => (this.activePeer = false), 3000);
+    },
+    tagPeers() {
+      this.channel.whisper("typing", {
         name: window.App.user.name
       });
     },

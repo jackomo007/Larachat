@@ -54927,26 +54927,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       typingTimer: false
     };
   },
+
+  computed: {
+    channel: function channel() {
+      return window.Echo.private("tasks." + this.project.id);
+    }
+  },
   created: function created() {
     var _this = this;
 
-    window.Echo.private("tasks." + this.project.id).listen("TaskCreated", function (_ref) {
+    this.channel.listen("TaskCreated", function (_ref) {
       var task = _ref.task;
       return _this.addTask(task);
-    }).listenForWhisper("typing", function (e) {
-      _this.activePeer = e;
-
-      if (_this.typingTimer) clearTimeout(_this.typingTimer);
-
-      _this.typingTimer = setTimeout(function () {
-        _this.activePeer = false;
-      }, 3000);
-    });
+    }).listenForWhisper("typing", this.flashActivePeer);
   },
 
   methods: {
-    tapParticipants: function tapParticipants() {
-      window.Echo.private("tasks." + this.project.id).whisper("typing", {
+    flashActivePeer: function flashActivePeer(e) {
+      var _this2 = this;
+
+      this.activePeer = e;
+
+      if (this.typingTimer) clearTimeout(this.typingTimer);
+
+      this.typingTimer = setTimeout(function () {
+        return _this2.activePeer = false;
+      }, 3000);
+    },
+    tagPeers: function tagPeers() {
+      this.channel.whisper("typing", {
         name: window.App.user.name
       });
     },
@@ -55001,7 +55010,7 @@ var render = function() {
       domProps: { value: _vm.newTask },
       on: {
         blur: _vm.save,
-        keydown: _vm.tapParticipants,
+        keydown: _vm.tagPeers,
         input: function($event) {
           if ($event.target.composing) {
             return
