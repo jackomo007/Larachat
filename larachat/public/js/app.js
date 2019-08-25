@@ -54908,13 +54908,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["data-project"],
   data: function data() {
     return {
       project: this.dataProject,
-      newTask: ""
+      newTask: "",
+      activePeer: false,
+      typingTimer: false
     };
   },
   created: function created() {
@@ -54922,18 +54932,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     window.Echo.private("tasks." + this.project.id).listen("TaskCreated", function (_ref) {
       var task = _ref.task;
+      return _this.addTask(task);
+    }).listenForWhisper("typing", function (e) {
+      _this.activePeer = e;
 
-      _this.addTask(task);
+      if (_this.typingTimer) clearTimeout(_this.typingTimer);
+
+      _this.typingTimer = setTimeout(function () {
+        _this.activePeer = false;
+      }, 3000);
     });
   },
 
   methods: {
+    tapParticipants: function tapParticipants() {
+      window.Echo.private("tasks." + this.project.id).whisper("typing", {
+        name: window.App.user.name
+      });
+    },
     save: function save() {
       axios.post("/api/projects/" + this.project.id + "/tasks", { body: this.newTask }).then(function (response) {
         return response.data;
       }).then(this.addTask);
     },
     addTask: function addTask(task) {
+      this.activePeer = false;
       this.project.tasks.push(task);
 
       this.newTask = "";
@@ -54978,6 +55001,7 @@ var render = function() {
       domProps: { value: _vm.newTask },
       on: {
         blur: _vm.save,
+        keydown: _vm.tapParticipants,
         input: function($event) {
           if ($event.target.composing) {
             return
@@ -54985,7 +55009,15 @@ var render = function() {
           _vm.newTask = $event.target.value
         }
       }
-    })
+    }),
+    _vm._v(" "),
+    _vm.activePeer
+      ? _c("span", {
+          domProps: {
+            textContent: _vm._s(_vm.activePeer.name + " is typing...")
+          }
+        })
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
