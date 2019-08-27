@@ -15,7 +15,7 @@
                     @endif
                         
                     @foreach ($subscribeds as $subscribed)
-                        <a href="{{'/projects/'.$subscribed->id}}"><i class="material-icons" style="position: absolute;">chat</i><p style="padding-left: 30px;">{{$subscribed->name}}</p></a>    
+                        <a style="text-decoration:none;" href="{{'/projects/'.$subscribed->id}}"><i class="material-icons" style="position: absolute;">chat</i><p style="padding-left: 30px;">{{$subscribed->name}}</p></a>    
                     @endforeach
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     @endif
                         
                     @foreach ($unsubscribeds as $unsubscribed)
-                        <a href="{{'/projects/'.$unsubscribed->id}}"><i class="material-icons" style="position: absolute;">chat_bubble_outline</i><p style="padding-left: 30px;">{{$unsubscribed->name}}</p></a>    
+                        <a style="text-decoration:none;" href="{{'/projects/'.$unsubscribed->id}}"><i class="material-icons" style="position: absolute;">chat_bubble_outline</i><p style="padding-left: 30px;">{{$unsubscribed->name}}</p></a>    
                     @endforeach
                 </div>
             </div>

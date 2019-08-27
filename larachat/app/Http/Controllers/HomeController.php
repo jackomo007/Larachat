@@ -34,6 +34,7 @@ class HomeController extends Controller
         $unsubscribeds = DB::table('projects')
                     ->join('project_participants', 'projects.id', '=', 'project_participants.project_id')
                     ->where('project_participants.user_id','!=',auth()->user()->id)
+                    ->whereNotIn('project_participants.project_id', $subscribeds->pluck('id'))
                     ->select('projects.*')
                     ->get();
         return view('home',['subscribeds' => $subscribeds,'unsubscribeds' => $unsubscribeds->unique()]);

@@ -13,12 +13,22 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
-    
+    <style>
+        .colorido{
+            background: -moz-linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(5,193,255,1) 83%, rgba(0,0,0,1) 100%); /* ff3.6+ */
+            background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(255,0,0,1)), color-stop(83%, rgba(5,193,255,1)), color-stop(100%, rgba(0,0,0,1))); /* safari4+,chrome */
+            background: -webkit-linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(5,193,255,1) 83%, rgba(0,0,0,1) 100%); /* safari5.1+,chrome10+ */
+            background: -o-linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(5,193,255,1) 83%, rgba(0,0,0,1) 100%); /* opera 11.10+ */
+            background: -ms-linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(5,193,255,1) 83%, rgba(0,0,0,1) 100%); /* ie10+ */
+            background: linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(5,193,255,1) 83%, rgba(0,0,0,1) 100%); /* w3c */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#FF0000',GradientType=1 ); /* ie6-9 */
+        }
+    </style>
     <script>
         window.App = <?= json_encode(['user' => auth()->user()]); ?>
     </script>
 </head>
-<body>
+<body class="colorido">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
