@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Salas Suscritas</div>
+                <div class="panel-heading colorido" style=" color: cornsilk;">Salas Suscritas</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Salas Criadas</div>
+                <div class="panel-heading colorido" style=" color: cornsilk;">Salas Criadas</div>
 
                 <div class="panel-body">
                     @if (session('status'))
