@@ -14,6 +14,22 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
     <style>
+        li.list-group {
+            color: seashell;
+        }
+        .form-control{
+            color: hsla(0,0%,100%,.8);
+            background-color: transparent;
+        }
+        .panel-default > .panel-heading {
+            color: white;
+            background-color: #27293d;
+            border-color: #014788;
+        }
+        .panel-default {
+            border-color: darkslategrey;
+            background: #27293d;
+        }
         .oscuro{
            background: #000428; /* fallback for old browsers */
             background: -webkit-linear-gradient(to right, #000428, #004e92); /* Chrome 10-25, Safari 5.1-6 */
@@ -44,6 +60,11 @@
 
         .dropdown-menu > li > a > a:hover{
             color: lightblue;
+        }
+
+
+        h3 {
+            color: deepskyblue;
         }
     </style>
     <script>

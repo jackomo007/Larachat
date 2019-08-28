@@ -55006,7 +55006,7 @@ var render = function() {
         }
       ],
       staticClass: "form-control",
-      attrs: { type: "text", placeholder: "New Task" },
+      attrs: { type: "text", placeholder: "Write here your message..." },
       domProps: { value: _vm.newTask },
       on: {
         blur: _vm.save,

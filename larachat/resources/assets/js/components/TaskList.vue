@@ -8,7 +8,7 @@
     <input
       class="form-control"
       type="text"
-      placeholder="New Task"
+      placeholder="Write here your message..."
       v-model="newTask"
       @blur="save"
       @keydown="tagPeers"
