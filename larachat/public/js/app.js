@@ -54916,6 +54916,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["data-project"],
@@ -54985,12 +54986,13 @@ var render = function() {
     _c("h3", { domProps: { textContent: _vm._s(_vm.project.name) } }),
     _vm._v(" "),
     _c(
-      "ul",
+      "div",
+      { attrs: { id: "mensajes" } },
       _vm._l(_vm.project.tasks, function(task) {
-        return _c("li", {
+        return _c("p", {
           key: task.id,
-          staticClass: "list-group",
-          domProps: { textContent: _vm._s(task.body) }
+          class: [task.project_id == 1 ? "left" : "rigth"],
+          domProps: { textContent: _vm._s(task.project_id) }
         })
       }),
       0

@@ -1,10 +1,11 @@
 <template>
   <div>
     <h3 v-text="project.name"></h3>
-    <ul>
-      <li class="list-group" v-for="task in project.tasks" :key="task.id" v-text="task.body"></li>
-    </ul>
-
+    <div id="mensajes">
+     
+        <p v-for="task in project.tasks" :key="task.id" v-text="task.project_id" :class="[task.project_id == 1 ? 'left' : 'rigth']"></p>
+      
+    </div>
     <input
       class="form-control"
       type="text"
