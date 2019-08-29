@@ -1,8 +1,10 @@
 <?php
 
 use App\Project;
+use App\Task;
 use App\Events\TaskCreated;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -42,10 +44,16 @@ Route::post('/api/projects/{project}/tasks', function(Project $project) {
     
     $x =$project->participants->toArray();
     $emails = Arr::pluck($x, 'email');
-    
+
     if(in_array(auth()->user()->email, $emails)){
-       
-        $task = $project->tasks()->create(request(['body']));
+       $body = request(['body']);
+         $task = new Task([
+            'body' => $body["body"],
+            'project_id' => $project->id,
+            'user_id' =>  auth()->user()->id
+        ]);
+
+        $task->save();
 
         event(new TaskCreated($task));
 

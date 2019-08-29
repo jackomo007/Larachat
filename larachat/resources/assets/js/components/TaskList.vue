@@ -3,7 +3,10 @@
     <h3 v-text="project.name"></h3>
     <div id="mensajes">
      
-        <p v-for="task in project.tasks" :key="task.id" v-text="task.project_id" :class="[task.project_id == 1 ? 'left' : 'rigth']"></p>
+        <li v-for="task in project.tasks" :key="task.id">
+            <p v-text="task.body" :class="[task.user_id == 1 ? 'left' : 'rigth']">{{ task.created_at}}</p>
+            <h6 :class="[task.user_id == 1 ? 'left' : 'rigth']">{{ task.created_at}}</h6>
+        </li>
       
     </div>
     <input

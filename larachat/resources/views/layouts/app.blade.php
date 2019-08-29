@@ -14,6 +14,29 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
     <style>
+        h6.rigth {
+            color: seashell;
+            text-align: right;
+        }
+
+        h6.left {
+            color: seashell;
+            text-align: left;
+        }        
+        li{
+           list-style-type: none; 
+        }
+
+        p.rigth {
+            text-align: right;
+            padding-right: 5px;
+        }
+
+        p.left {
+            text-align: left;
+            padding-left: 5px;
+        }
+
         label.col-md-4.control-label {
             color: cornflowerblue;
         }
